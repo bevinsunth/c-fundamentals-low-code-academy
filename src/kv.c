@@ -37,6 +37,7 @@ int kv_put(kv_t *db, char *key, char *value)
       if (!newval)
         return -1;
       entry->value = newval;
+      return real_idx;
     }
     if (!entry->key || entry->key == (void *)TOMBSTONE)
     {
@@ -54,7 +55,6 @@ int kv_put(kv_t *db, char *key, char *value)
     }
     return -1;
   }
-  return 0;
 }
 
 kv_t *kv_init(size_t capacity)
