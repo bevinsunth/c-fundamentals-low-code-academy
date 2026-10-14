@@ -8,7 +8,7 @@ int main (void) {
 
   kv_put(table, "hehe", "haha");
   kv_put(table, "hehe", "hoho");
-  kv_put(table, "heh", "lola");
+  kv_put(table, "color", "blue");
 
   for(int i=0; i < table->capacity; i++)
   {
