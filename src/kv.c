@@ -24,9 +24,9 @@ char *kv_get(kv_t *db, char *key) {
 
     size_t index = hash(key, db->capacity);
     for (int i = 0; i < db->capacity; i++) {
-        size_t real_idx = (index + 1) % db->capacity;
+        size_t real_idx = (index + i) % db->capacity;
         kv_entry_t *entry = &db->entries[real_idx];
-        if (entry->key == NULL || entry->key == (void *) TOMBSTONE)
+        if (entry->key == NULL )
             return NULL;
         if (entry->key &&
             entry->key != TOMBSTONE &&
@@ -42,7 +42,7 @@ int kv_put(kv_t *db, char *key, char *value) {
         return -1;
     size_t index = hash(key, db->capacity);
     for (int i = 0; i < db->capacity; i++) {
-        size_t real_idx = (index + 1) % db->capacity;
+        size_t real_idx = (index + i) % db->capacity;
         kv_entry_t *entry = &db->entries[real_idx];
         if (entry->key &&
             entry->key != (void *) TOMBSTONE &&
@@ -65,7 +65,6 @@ int kv_put(kv_t *db, char *key, char *value) {
             db->count++;
             return 0;
         }
-        return -1;
     }
 }
 
