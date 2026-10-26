@@ -10,6 +10,11 @@ int main (void) {
   kv_put(table, "hehe", "hoho");
   kv_put(table, "color", "blue");
 
+char *val1 =  kv_get(table, "hehe");
+char *val2 =  kv_get(table, "hoho");
+
+  printf("%p\n", val1);
+  printf("%p\n", val2);
   for(int i=0; i < table->capacity; i++)
   {
     if(table->entries[i].key)

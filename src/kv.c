@@ -19,7 +19,24 @@ size_t hash(char *value, size_t capacity)
 
   return hash % capacity;
 }
+char *kv_get(kv_t *db, char *key)
+{
+ if (!db || !key)
+   return NULL;
 
+  size_t index = hash(key, db->capacity);
+  for (int i = 0; i < db->capacity; i++) {
+    size_t real_idx = (index + 1) % db->capacity;
+    kv_entry_t *entry = &db->entries[real_idx];
+    if (entry->key == NULL || entry->key == (void *)TOMBSTONE)
+      return NULL;
+  if (entry->key && entry->key != TOMBSTONE &&
+    !strcmp(entry->key, key)) {
+    return entry->value;
+  }
+  }
+    return NULL;
+}
 int kv_put(kv_t *db, char *key, char *value)
 {
   if (!db || !key || !value)
@@ -61,7 +78,6 @@ kv_t *kv_init(size_t capacity)
 {
   if (capacity == 0)
     return NULL;
-
   kv_t *table = malloc(sizeof(kv_t));
   if (table == NULL)
   {
