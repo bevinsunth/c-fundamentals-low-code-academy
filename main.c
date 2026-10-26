@@ -15,11 +15,4 @@ char *val2 =  kv_get(table, "hoho");
 
   printf("%p\n", val1);
   printf("%p\n", val2);
-  for(int i=0; i < table->capacity; i++)
-  {
-    if(table->entries[i].key)
-    {
-      printf("[%d] %s: %s\n", i, table->entries[i].key, table->entries[i].value);
-    }
-  }
 }
